@@ -1,0 +1,207 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% macro tagCollectionItem(formData) %}
+
+    <div class="row">
+        <div class="col-lg-2 col-xs-12">
+            {{ form_row(formData.bienes) }}
+        </div>
+
+        <div class="col-lg-2 col-xs-12">
+            {{ form_row(formData.cantidad) }}
+        </div>
+
+        <div class="col-lg-2 col-xs-12">
+            {{ form_row(formData.precioUnitario) }}
+        </div>
+
+        <div class="col-lg-2 col-xs-12">
+            {{ form_row(formData.porcentajeIva) }}
+        </div>
+
+        <div class="col-lg-2 col-xs-12">
+            {{ form_row(formData.iva) }}
+        </div>
+
+        <div class="col-lg-2 col-xs-12">
+            {{ form_row(formData.importe) }}
+        </div>
+        <div class="col-lg-2 col-xs-12">
+            <a href="#" class="delete_item"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a>
+        </div>
+    </div>
+{% endmacro %}
+
+{% block body -%}
+    <h1>Factura creation</h1>
+
+
+
+    {{ form_start(form) }}
+
+
+    <div class="row">
+
+
+        <div class="col-lg-offset-8 col-lg-4">
+
+            {{ form_row (form.puntoVenta) }}
+
+
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.comprobanteTipo) }}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.conceptoTipo) }}
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.fechaServicioInicio) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.fechaServicioFin) }}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.fechaEmision) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.fechaVencimiento) }}
+        </div>
+    </div>
+
+
+
+
+
+    <div id="form_items">
+
+
+        <ul class="items" data-prototype="{{ _self.tagCollectionItem(form.items.vars.prototype)|e }}" data-index="{{ form.items.count }}">
+            {% for item in form.items %}
+                {{ _self.tagCollectionItem(item) }}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <a  id="addItem"> <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.subtotal) }}
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.iva) }}
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row (form.total) }}
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col-lg-offset-8 col-lg-4">
+        {{ form_row (form.cliente) }}
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+            {{ form_row(form._token) }}
+
+            {{ form_row (form.submit) }}
+        </div>
+
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('factura') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    {#
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        /*function addItem (e){
+
+            var $detalles = $("ul.items");
+            var $index = $detalles.data('index') || 0;
+            var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index );
+            var $li = $('<li></li>').append($detalle);
+            var $removeFormA = $('<div class="form-group"><a href="#" class="delete_item"> <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a></div>');
+            $li.children().append($removeFormA);
+            $detalles.append( $li);
+
+            $detalles.data('index', $index + 1);
+        };
+
+        function deleteItem(e){
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        };
+
+        function style(){
+            //$(".item_importe, .item_detalle").parent().addClass("form-group");
+            //$(".item_importe").parent().addClass("form-group")
+            $("li .form-group").css("float", "left");
+            $("li .form-group:first-of-type").css("clear", "left");
+            $(".item_importe").parent().addClass("col-lg-3");
+            $(".item_bienes").parent().addClass("col-lg-4");
+            $("ul li").css("list-style-type", "none");
+
+        }
+        jQuery(document).ready(function () {
+
+            //$("body").delegate("#addItem", "click", addItem);
+            //$("body").delegate(".delete_item", "click", deleteItem);
+            //$("body").delegate("#addItem", "click", style);
+
+            //$("#addItem").trigger("click");
+
+
+
+
+        });
+
+*/
+    </script>#}
+{% endblock %}

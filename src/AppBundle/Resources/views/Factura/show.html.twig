@@ -1,0 +1,203 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Factura</h1>
+
+    <table class="table comprobante_show">
+        <thead>
+
+            <tr>
+                <td>
+                    <p> {{ emisor.razonSocial }}</p>
+                    <p>{{ emisor.domicilio }}</p>
+                    <p>{{ emisor.condicionIva }}</p>
+                </td>
+                <td>
+                    <p>{{ entity.comprobanteTipo.nombre |replace({'Factura': '', 'Recibo': ""}) }}</p>
+                </td>
+                <td>
+                    <p>FACTURA N° : {{ "%04d"|format(entity.puntoVenta.numero)  }}-{{ "%08d"|format(entity.numeroComprobante.numero)  }} </p>
+                    <p>FECHA Y HORA:  {{ entity.fechaEmision |date("Y/m/d h:m") }}</p>
+                    <p> CUIT: {{ emisor.cuit }}</p>
+                    <p> ING. BRUTOS: </p>
+                    <p> INICIO ACTIVIDADES: {{ emisor.fechaInicioActividades |date("Y/m/d") }}</p>
+                </td>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr>
+                <th colspan="3">
+                   <p>Cliente</p>
+                </th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p>{{ entity.cliente.nombre }}</p>
+                    <p>{{ entity.cliente.domicilioPostal }}	{{ entity.cliente.cuit }}</p>
+                    <p>{{ entity.cliente.condicionIva }}</p>
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="3">
+                    <p>Detalle</p>
+                </th>
+            </tr>
+
+            <tr>
+                <td colspan="3">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Detalle</th>
+                                <th>Precio Unitario</th>
+                                <th>Importe</th>
+                            </tr>
+                            {% for item in entity.items %}
+                            <tr>
+                                <td>{{ item.cantidad }}</td>
+                                <td>{{ item.bienes.nombre }}</td>
+                                <td>{{ item.precioUnitario }}</td>
+                                <td>{{ item.importe }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td> .</td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+
+
+                        {% if entity.iva %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th>
+                                    Subtotal
+                                </th>
+                                <td>
+                                    {{ entity.subtotal }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th>
+                                    IVA
+                                </th>
+                                <td>
+                                    {{ entity.iva }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th>
+                                    Total
+                                </th>
+                                <td>
+                                    {{ entity.total }}
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+
+        <tr>
+            <th colspan="3">
+                <p> CAE: {{ entity.codigoAutorizacionElectronico }}</p>
+            </th>
+        </tr>
+
+        </tfoot>
+
+    </table>
+
+    {#
+    <table border="" cellspacing="1" cellpadding="4" width="633" class="table">
+        <tbody>
+            <tr>
+                <td width="39%" valign="TOP" height="36"><dir>
+                    <p><font face="Arial" size="2">{{ emisor.razonSocial }}</font></p><font face="Arial" size="2">
+                        <p> {{ emisor.razonSocial }}</p></font></dir><font face="Arial" size="2">
+                </font></td>
+            <td width="15%" valign="TOP" colspan="2" height="36">
+                <b><font face="Arial" size="2"></font></b><font face="Arial" size="2"></font><p align="CENTER"><font face="Arial" size="2"><b>C</b></font></p></td>
+            <td width="46%" valign="TOP" height="36">
+                <font face="Arial" size="2"><p align="CENTER">FACTURA N° : {{ "%04d"|format(entity.puntoVenta.numero)  }}-{{ "%08d"|format(entity.numeroComprobante.numero)  }} </p>
+                </font><p align="RIGHT"><font face="Arial" size="2">FECHA Y HORA:  {{ entity.fechaEmision |date("Y/m/d h:m") }}</font></p></td>
+        </tr>
+        <tr><td width="46%" valign="TOP" colspan="2"><dir>
+
+                    <font face="Arial" size="2"><p>{{ emisor.domicilio }}</p>
+                        <p>{{ emisor.domicilio }}</p>
+                        <p>{{ emisor.condicionIva }}</p>
+                        <p>{{ emisor.condicionIva }}</p></font></dir><font face="Arial" size="2">
+                </font></td>
+            <td width="53%" valign="TOP" colspan="2">
+                <font face="Arial" size="2"><p align="RIGHT"> CUIT: {{ emisor.cuit }}</p>
+                    <p align="RIGHT"> ING. BRUTOS: </p>
+                </font><p align="RIGHT"><font face="Arial" size="2"> INICIO ACTIVIDADES: {{ emisor.fechaInicioActividades |date("Y/m/d") }}</font></p></td>
+        </tr>
+        <tr><td valign="TOP" colspan="4" height="60">
+                <font face="Arial" size="2"><p>{{ entity.cliente.nombre }}</p>
+                    <p>{{ entity.cliente.nombre }}</p>
+                    <p>{{ entity.cliente.domicilioPostal }}	{{ entity.cliente.cuit }}</p>
+                    <p>{{ entity.cliente.condicionIva }}</p>
+                    <p>A CONSUMIDOR FINAL/IVA EXENTO/IVA NO RESPONSABLE/ 	(18) REMITO/S N°/Nros.</p>
+                </font><p><font face="Arial" size="2">RESPONSABLE MONOTRIBUTO</font></p></td>
+        </tr>
+        <tr><td valign="TOP" colspan="4">
+                <font face="Arial" size="2"><p> CANTIDAD 	DESCRIPCIÓN 			PRECIO 	PRECIO</p>
+                    <p>		 UNITARIO	NETO</p>
+                    {% for item in entity.items %}
+                        <p>{{ item.bienes.nombre }} {{ item.importe }} </p>
+
+                    {% endfor %}
+
+
+                </font><p><font face="Arial" size="2">	 TOTAL	{{ entity.total }} </font></p></td>
+        </tr>
+        <tr><td valign="TOP" colspan="4" height="45">
+                <font face="Arial" size="2"></font><p><font face="Arial" size="2"> RECIBI(MOS):</font></p></td>
+        </tr>
+        <tr><td valign="TOP" colspan="4" height="5">
+                <p><img src="Image84.gif" width="123" height="32"></p>
+                <font face="Arial" size="2"><p> N° REGISTRO CONTROLADOR FISCAL</p>
+                    <p> CAE: {{ entity.codigoAutorizacionElectronico }}</p>
+
+                </font><p><font face="Arial" size="2"></font></p></td>
+
+        </tr>
+        </tbody></table>
+    #}
+
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('factura') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('factura_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

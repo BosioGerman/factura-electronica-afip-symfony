@@ -1,0 +1,49 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Emisor list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Razonsocial</th>
+                <th>Cuit</th>
+                <th>Domicilio</th>
+                <th>Condicioniva</th>
+                <th>Fechainicioactividades</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('emisor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.razonSocial }}</td>
+                <td>{{ entity.cuit }}</td>
+                <td>{{ entity.domicilio }}</td>
+                <td>{{ entity.condicionIva }}</td>
+                <td>{% if entity.fechaInicioActividades %}{{ entity.fechaInicioActividades|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('emisor_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('emisor_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('emisor_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

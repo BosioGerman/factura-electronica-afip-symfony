@@ -1,0 +1,16 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Bienes edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions table">
+    <li>
+        <a href="{{ path('bienes') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

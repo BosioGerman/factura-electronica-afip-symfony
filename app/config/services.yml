@@ -1,0 +1,42 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+  afip.auth.manager:
+    class: AppBundle\Service\AuthService
+    arguments: ['@service_container']
+  afip.token.storage:
+    class: AppBundle\Service\Token\TokenStorage
+    arguments: ['@doctrine.orm.default_entity_manager']
+  afip.token.validator:
+    class: AppBundle\Service\Token\TokenValidator
+    arguments: []
+  afip.xml.generator:
+    class: AppBundle\Service\Auth\Generator
+    arguments: ['@kernel']
+  afip.xml.signer:
+    class: AppBundle\Service\Auth\XMLSigner
+    arguments: ['@kernel']
+  afip.wsaa.caller:
+    class: AppBundle\Service\Auth\WSAACaller
+    arguments: ['@kernel']
+  afip.token.updater:
+    class: AppBundle\Service\Token\TokenUpdater
+    arguments: ['@afip.xml.generator', '@afip.wsaa.caller', '@afip.xml.signer', '@afip.token.storage']
+  afip.token.provider:
+      class: AppBundle\Service\Token\TokenProvider
+      arguments: ['@afip.token.storage', '@afip.token.validator', '@afip.token.updater']
+  afip.web.service.client:
+      class: AppBundle\Service\WS\WebServiceAFIPClient
+      arguments: ['@afip.token.provider', '@kernel']
+  afip.auth.provider:
+      class: AppBundle\Utility\AuthProvider
+      arguments: ['@afip.token.provider', '@doctrine.orm.entity_manager']
+  afip.comprobante.numero.provider:
+      class: AppBundle\Utility\ComprobanteNumeroProvider
+      arguments: ['@doctrine.orm.entity_manager']

@@ -1,0 +1,4 @@
+[Project]
+Name=fe_dev
+Manager=KDevGenericManager
+VersionControl=kdevgit

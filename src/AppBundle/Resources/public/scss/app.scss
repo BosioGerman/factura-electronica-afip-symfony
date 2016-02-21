@@ -1,0 +1,102 @@
+#form_items li{
+  list-style: none;
+
+}
+body{
+  font-family: 'Roboto', sans-serif;
+}
+#bottom_bar{
+  width: 100%;
+}
+
+form input, .row_product_cost, .row_product_price, .row_product_qty, .row_id, .row_createdAt, .row_updatedAt{
+  font-family: 'Droid Sans Mono', monospace;
+}
+
+label{
+  text-transform: uppercase;
+}
+
+
+.items{
+  padding-left: 0px;
+}
+
+
+.delete_item{
+  text-decoration: none;
+  padding-left: 85%;
+  font-size: 2em;
+  color: #ac2925;
+}
+
+.comprobante_show{
+  border: solid;
+  thead{
+    td{
+      width: 41.55%;
+    }
+    td:nth-of-type(2){
+      border-left: solid ;
+      border-right: solid;
+      width: 16.65%;
+      font-size: 3em;
+      text-align: center;
+    }
+
+  }
+  tbody{
+    table{
+      width: 100%;
+      tfoot{
+        border-top: solid;
+        margin-top: 2em;
+      }
+    }
+  }
+}
+
+
+#appBundle_search_operation .form-group:first-of-type,#appBundle_search_operation .form-group:nth-of-type(2),{
+
+  [id^=appBundle_search_operation_]{
+    width: auto;
+    display: inline;
+  }
+  label{
+    display: block;
+  }
+}
+
+
+
+#addItem{
+  font-size: 2em;
+  text-decoration: none;
+  color: #0f0f0f;
+}
+
+.row_updatedAt, .row_createdAt, .row_deleted, .row_address, .row_product_price, .row_product_cost{
+  display: none;
+}
+
+.row_actions ul{
+  padding-left: 0%;
+  list-style: none;
+}
+
+
+
+#appBundle_search_operation_submit{
+display: block;
+}
+
+@media screen and (min-device-width: 768px) and (orientation: landscape){
+  .row_updatedAt, .row_createdAt, .row_deleted, .row_address, .row_price, .row_cost{
+    display: table-cell;
+  }
+  .delete_item{
+    padding-left: 0px;
+  }
+}
+

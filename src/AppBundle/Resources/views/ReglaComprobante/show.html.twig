@@ -1,0 +1,40 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>ReglaComprobante</h1>
+
+    <table class="record_properties table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>emisor</th>
+                <td>{{ entity.emisorRegimen.nombre }}</td>
+            </tr>
+            <tr>
+                <th>cliente</th>
+                <td>{{ entity.clienteRegimen.nombre }}</td>
+            </tr>
+            <tr>
+                <th>comprobante</th>
+                <td>{{ entity.comprobanteTipo.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('reglacomprobante') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('reglacomprobante_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
