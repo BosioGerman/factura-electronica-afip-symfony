@@ -7,8 +7,9 @@ el framework Symfony MVC de php.
 Importante
 --------------
 
-Se encuentra en un estado alpha, con pocas características y muchos inconvenientes y fallas de seguridad. 
-No lo use en modo producción. Solo para homologación por el momento. 
+No esta listo, se deben organizar los llamados a AFIP, con pocas características y muchos inconvenientes y malas practicas de seguridad. 
+
+ 
 
 
 Actualmente soporta:
@@ -46,3 +47,4 @@ Nombres de ficheros:
   * src/AppBundle/wssa.wsdl;
 
 # factura-electronica-afip
+# factura-electronica-afip-symfony
